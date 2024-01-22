@@ -1,6 +1,7 @@
 package com.example.myboard.controller;
 
 import com.example.myboard.domain.TbBoard;
+import com.example.myboard.dto.PageDTO;
 import com.example.myboard.dto.TbBoardDTO;
 import com.example.myboard.dto.TbBoardUpdateFormDTO;
 import com.example.myboard.dto.TbBoardWriteFormDTO;
@@ -24,9 +25,14 @@ public class TbBoardRestController {
     //2. article create
     //3. article update
     //4. article delete
+//    @GetMapping("/articles")
+//    public ResponseEntity<List<TbBoardDTO>> getAllArticles() {
+//        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getAllArticles());
+//    }
     @GetMapping("/articles")
-    public ResponseEntity<List<TbBoardDTO>> getAllArticles() {
-        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getAllArticles());
+    public ResponseEntity<PageDTO<TbBoardDTO>> getPagedArticles(@RequestParam(name = "currentPage",required = false) Integer currentPage) {
+        if(currentPage == null ) currentPage = 1;
+        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getPagedArticles(currentPage));
     }
     @PostMapping("/articles")
     public ResponseEntity<TbBoardDTO> create(@RequestBody TbBoardWriteFormDTO dto) {

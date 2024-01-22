@@ -26,7 +26,7 @@ public abstract class AuditingFields {
     @Column(nullable = false, updatable = false)
     @CreatedDate
     @Getter
-    protected LocalDateTime createAt;
+    protected LocalDateTime createdAt;
 
     @Column(nullable = false, updatable = false)
     @LastModifiedDate

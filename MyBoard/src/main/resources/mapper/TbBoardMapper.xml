@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.myboard.mapper.TbBoardMapper">
+    <!-- 게시글 갯수 카운트 쿼리 -->
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM tb_board where tb_board.deleted != "Y"
+    </select>
+
+    <select id="getPagedElements" parameterType="hashMap" resultType="com.example.myboard.dto.TbBoardDTO">
+        SELECT tb_board.id
+             ,tb_board.title
+             ,tb_board.content
+             ,tb_board.created_at
+             ,tb_board.modified_at
+             ,tb_board.views
+        FROM tb_board
+        where tb_board.deleted != "Y"
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+</mapper>
