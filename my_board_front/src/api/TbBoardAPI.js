@@ -9,17 +9,30 @@ const apiService = axios.create({
   },
 });
 export const getAllArticles = async () => {
-    getPagedArticles(1);
+    getPagedArticles1(1);
   };
-  export const getPagedArticles = async (currentPage) => {
+  export const getPagedArticles1 = async (pageInfo) => {
+    console.log(pageInfo)
+    let currentPage = pageInfo.currentPage
+    let keyword = pageInfo.keyword
+    let createdSortType = pageInfo.createdSortType
+    let queryParm = "currentPage=" + currentPage
+    if(keyword != null) {
+      queryParm += "&keyword=" + keyword  
+    }
+    if(createdSortType != null) {
+      queryParm += "&order=" + createdSortType  
+    }
+    console.log(queryParm)
     try {
-      const response = await apiService.get('/articles?currentPage=' + currentPage);
+      const response = await apiService.get('/articles?'+queryParm);
       return response.data;
     } catch (error) {
       console.error('Error fetching articles:', error);
       throw error;
     }
   }
+  
   export const createArticle = async (writeForm) => {
     try {
       const response = await apiService.post('/articles',writeForm);

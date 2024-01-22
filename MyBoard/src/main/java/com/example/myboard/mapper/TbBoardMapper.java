@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface TbBoardMapper {
 	int countAll();
-	List<TbBoardDTO> getPagedElements(Map<String,Integer> pageInfo);
+	List<TbBoardDTO> getPagedElements(Map<String,Object> pageInfo);
 }

@@ -1,4 +1,4 @@
-package com.example.myboard.dto;
+package com.example.myboard.dto.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,7 @@ public class PageDTO<T> {
     private int totalPage;
     private int currentPage;
     private int pageSize;
+    private PageOption option;
     private List<T> elements;
-
 }
+
