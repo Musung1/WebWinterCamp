@@ -19,7 +19,7 @@ public class DtoMapper {
                 .id(tbBoard.getId())
                 .title(tbBoard.getTitle())
                 .content(tbBoard.getContent())
-                .createAt(tbBoard.getCreateAt())
+                .createdAt(tbBoard.getCreatedAt())
                 .modifiedAt(tbBoard.getModifiedAt())
                 .views(tbBoard.getViews())
                 .build();
