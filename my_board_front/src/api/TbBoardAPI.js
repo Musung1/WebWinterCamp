@@ -9,14 +9,17 @@ const apiService = axios.create({
   },
 });
 export const getAllArticles = async () => {
+    getPagedArticles(1);
+  };
+  export const getPagedArticles = async (currentPage) => {
     try {
-      const response = await apiService.get('/articles');
+      const response = await apiService.get('/articles?currentPage=' + currentPage);
       return response.data;
     } catch (error) {
       console.error('Error fetching articles:', error);
       throw error;
     }
-  };
+  }
   export const createArticle = async (writeForm) => {
     try {
       const response = await apiService.post('/articles',writeForm);

@@ -2,7 +2,7 @@ import articleStore from "../store/store";
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 function List() {
-    let {articles, fetchArticles} = articleStore();
+    let {articles,getPagedArticles} = articleStore();
     let count = 1;
     function ListItems() {
         return (
@@ -17,10 +17,8 @@ function List() {
         );
     } 
     useEffect(()=> {
-        fetchArticles();
-        console.log(articles)
-    },[fetchArticles]);
-
+        getPagedArticles(1);
+    },[getPagedArticles]);
     return (
         <div>
             <h1>게시판입니다</h1>
@@ -43,19 +41,34 @@ function List() {
     );
 }
 function PageNavigator() {
-    const [data, setData] = useState([]);
-    const [pageNumber, setPageNumber] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const pageSize = 10; // 페이지당 아이템 수
+    let {pageInfo,getPagedArticles} = articleStore();
+    const onClick = (pageNum) => {
+        getPagedArticles(pageNum)
+        console.log("hello")
+    }
+    const generateButtons = () => {
+        const buttons = [];
+        for (let i = 1; i <= pageInfo.totalPage; i++) {
+            let style = {}
+            if (i == pageInfo.currentPage) {
+                style = {backgroundColor: "blue"}
+            }
+            buttons.push(
+                <button 
+                onClick={()=>onClick(i)}
+                key={i} 
+                style={style}>{i}</button>
+            );
+        }
+        return buttons;
+    };
     return (
         <div>
-        <button disabled={pageNumber === 1}>
+        <button onClick={()=>onClick(pageInfo.currentPage-1)} disabled={pageInfo.currentPage == 1}>
           이전 페이지
         </button>
-        <span>
-          페이지 {pageNumber} / {totalPages}
-        </span>
-        <button disabled={pageNumber === totalPages}>
+        {generateButtons()}
+        <button onClick={()=>onClick(pageInfo.currentPage+1)} disabled={pageInfo.currentPage == pageInfo.totalPage}>
           다음 페이지
         </button>
       </div>
