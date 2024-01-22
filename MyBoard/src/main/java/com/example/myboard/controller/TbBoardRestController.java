@@ -1,18 +1,17 @@
 package com.example.myboard.controller;
 
-import com.example.myboard.domain.TbBoard;
-import com.example.myboard.dto.PageDTO;
+import com.example.myboard.dto.page.PageDTO;
 import com.example.myboard.dto.TbBoardDTO;
 import com.example.myboard.dto.TbBoardUpdateFormDTO;
 import com.example.myboard.dto.TbBoardWriteFormDTO;
+import com.example.myboard.dto.page.PageOption;
+import com.example.myboard.dto.page.PageSortType;
 import com.example.myboard.service.TbBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RestController
@@ -30,9 +29,16 @@ public class TbBoardRestController {
 //        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getAllArticles());
 //    }
     @GetMapping("/articles")
-    public ResponseEntity<PageDTO<TbBoardDTO>> getPagedArticles(@RequestParam(name = "currentPage",required = false) Integer currentPage) {
+    public ResponseEntity<PageDTO<TbBoardDTO>> getPagedArticles(
+            @RequestParam(name = "currentPage",required = false) Integer currentPage,
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @RequestParam(name = "order", required = false) PageSortType order
+            ) {
         if(currentPage == null ) currentPage = 1;
-        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getPagedArticles(currentPage));
+        PageOption pageOption = new PageOption();
+        if(keyword != null) pageOption.setKeyword(keyword);
+        pageOption.setCreatedSortType(order);
+        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getPagedArticles(currentPage,pageOption));
     }
     @PostMapping("/articles")
     public ResponseEntity<TbBoardDTO> create(@RequestBody TbBoardWriteFormDTO dto) {

@@ -1,10 +1,11 @@
 package com.example.myboard.service;
 
 import com.example.myboard.domain.TbBoard;
-import com.example.myboard.dto.PageDTO;
+import com.example.myboard.dto.page.PageDTO;
 import com.example.myboard.dto.TbBoardDTO;
 import com.example.myboard.dto.TbBoardUpdateFormDTO;
 import com.example.myboard.dto.TbBoardWriteFormDTO;
+import com.example.myboard.dto.page.PageOption;
 import com.example.myboard.mapper.TbBoardMapper;
 import com.example.myboard.repository.TbBoardRepository;
 import com.example.myboard.util.DtoMapper;
@@ -36,7 +37,7 @@ public class TbBoardServiceImpl implements TbBoardService{
     }
 
     @Override
-    public PageDTO<TbBoardDTO> getPagedArticles(int currentPage) {
+    public PageDTO<TbBoardDTO> getPagedArticles(int currentPage, PageOption pageOption) {
         //1. 전체 게시글 수 구함
         int totalElement = tbBoardMapper.countAll();
         //2. 페이지 사이즈 정함 (default = 10)
@@ -44,9 +45,11 @@ public class TbBoardServiceImpl implements TbBoardService{
         //3. 페이지 수 구함
         int totalPage = (totalElement/pageSize) + 1;
         //4. index 대로 pageSize만큼 query로 게시글 가져옴
-        Map<String,Integer> pageInfo = new HashMap<>();
+        Map<String,Object> pageInfo = new HashMap<>();
         pageInfo.put("pageSize",pageSize);
         pageInfo.put("offset",pageSize*(currentPage-1));
+        pageInfo.put("keyword",pageOption.getKeyword());
+        pageInfo.put("order",pageOption.getCreatedSortType().toString());
         List<TbBoardDTO> pagedElements = tbBoardMapper.getPagedElements(pageInfo);
         //PageDTO로 리턴
         PageDTO<TbBoardDTO> result = new PageDTO<>();
@@ -54,6 +57,7 @@ public class TbBoardServiceImpl implements TbBoardService{
         result.setPageSize(pageSize);
         result.setTotalPage(totalPage);
         result.setElements(pagedElements);
+        result.setOption(pageOption);
         return result;
     }
 

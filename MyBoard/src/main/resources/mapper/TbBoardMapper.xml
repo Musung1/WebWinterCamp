@@ -15,6 +15,10 @@
              ,tb_board.views
         FROM tb_board
         where tb_board.deleted != "Y"
+        <if test = "keyword != null and keyword !=''">AND tb_board.title LIKE CONCAT('%', #{keyword}, '%')</if>
+        ORDER BY tb_board.created_at
+        <if test = "order =='ASC'">ASC</if>
+        <if test = "order =='DES'">DESC</if>
         LIMIT #{offset}, #{pageSize}
     </select>
 
