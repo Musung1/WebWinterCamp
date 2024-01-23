@@ -12,9 +12,9 @@ function Write(props) {
     return (
         <div>
             <h2>게시글 작성하기</h2>
-            <h1><label>title</label></h1>
+            <h1><label>title(3~15자)</label></h1>
             <input type="text" id="title" name="title" placeholder="제목을 입력하세요"></input>
-            <h1><label>content</label></h1>
+            <h1><label>content(5~500자)</label></h1>
             <textarea type="text" id="body" name="body" placeholder="내용을 입력하세요"></textarea>
             <br></br>
             <button onClick={async (event)=> {
@@ -24,7 +24,11 @@ function Write(props) {
                     }
                 event.preventDefault()
                 console.log(writeForm)
-                await addArticle(writeForm)
+                try {
+                    await addArticle(writeForm)
+                } catch (error) {
+                    alert("유효성 검사 에러")
+                }
                 goBack()
             }}>작성 완료</button>
         </div>
