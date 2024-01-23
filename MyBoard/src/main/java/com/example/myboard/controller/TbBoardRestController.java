@@ -7,6 +7,11 @@ import com.example.myboard.dto.TbBoardWriteFormDTO;
 import com.example.myboard.dto.page.PageOption;
 import com.example.myboard.dto.page.PageSortType;
 import com.example.myboard.service.TbBoardService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,21 +26,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @CrossOrigin
+@Tag(name = "BoardController", description = "BoardControllerAPI")
 public class TbBoardRestController {
     private final TbBoardService tbBoardService;
-    //1. articles read
-    //2. article create
-    //3. article update
-    //4. article delete
-//    @GetMapping("/articles")
-//    public ResponseEntity<List<TbBoardDTO>> getAllArticles() {
-//        return ResponseEntity.status(HttpStatus.OK).body(tbBoardService.getAllArticles());
-//    }
+    @Operation(summary = "게시판 글 조회" , description = "페이지 단위로 게시판 글을 조회합니다")
+    @ApiResponse(responseCode = "200",description = "성공",
+    content = {@Content(schema = @Schema(implementation = PageDTO.class))})
+    @ApiResponse(responseCode = "404",description = "유효성 검사 실패")
     @GetMapping("/articles")
     public ResponseEntity<PageDTO<TbBoardDTO>> getPagedArticles(
-            @RequestParam(name = "currentPage",required = false) Integer currentPage,
-            @RequestParam(name = "keyword", required = false) String keyword,
-            @RequestParam(name = "order", required = false) PageSortType order
+            @RequestParam(name = "currentPage",required = false)
+            @Schema(name = "currentPage", description = "현재 페이지", example = "1")
+            Integer currentPage,
+            @RequestParam(name = "keyword", required = false)
+            @Schema(name = "keyword", description = "검색어", example = "하이")
+            String keyword,
+            @RequestParam(name = "order", required = false)
+            @Schema(name = "order", description = "페이지 정렬 순서", example = "ASC")
+            PageSortType order
             ) {
         if(currentPage == null ) currentPage = 1;
         PageOption pageOption = new PageOption();

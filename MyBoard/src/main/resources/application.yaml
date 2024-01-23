@@ -12,4 +12,7 @@ spring:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
       hibernate.jdbc.time_zone: UTC
-
+springfox:
+  documentation:
+    swagger-ui:
+      enabled=true:
