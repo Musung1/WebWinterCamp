@@ -1,5 +1,6 @@
 package com.example.myboard.config;
 
+import com.example.myboard.argumentResolver.LoginArgumentResolver;
 import com.example.myboard.filter.MyFilter;
 import com.example.myboard.filter.MyFilterSecond;
 import com.example.myboard.interceptor.MyInterceptor;
@@ -37,11 +38,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new MyInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/css/**","/*.ico","/error");
+                .excludePathPatterns("/css/**","/*.ico","/error","/api/login","/api/signup","/");
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        WebMvcConfigurer.super.addArgumentResolvers(resolvers);
+        resolvers.add(new LoginArgumentResolver());
     }
 }

@@ -6,7 +6,7 @@ import SearchBar from "../component/SearchBar";
 function List() {
     let {articles,pageInfo,getPagedArticles} = articleStore();
     let count = 1;
-    function ListItems() {
+    let ListItems= ()=> {
         return (
             articles.map((article) => 
             <tr key={count}>
@@ -15,11 +15,12 @@ function List() {
             <td>{article.createAt}</td>
             <td>{article.views}</td>
         </tr>
-    )
+        )
         );
     } 
     useEffect(()=> {
         let pageInfoDTO = {}
+        console.log(articles)
         if(pageInfo.currentPage == null) {
             pageInfoDTO = {
                 currentPage: 1,

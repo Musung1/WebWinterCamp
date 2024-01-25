@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @Tag(name = "멀티미디어 파일 업로드 API", description = "멀티미디어파일을 업로드 할 수 있습니다.")
 public class FileUploadTestController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

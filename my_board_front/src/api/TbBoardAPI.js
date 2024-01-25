@@ -1,13 +1,8 @@
 import axios from "axios";
+import { apiService } from "./UserAPI";
 
-const API_BASE_URL = 'http://localhost:8080/api';
 
-const apiService = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+
 export const getAllArticles = async () => {
     getPagedArticles1(1);
   };
@@ -26,6 +21,7 @@ export const getAllArticles = async () => {
     console.log(queryParm)
     try {
       const response = await apiService.get('/articles?'+queryParm);
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error('Error fetching articles:', error);

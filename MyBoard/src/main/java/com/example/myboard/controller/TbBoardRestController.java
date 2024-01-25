@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @Tag(name = "게시글 CRUD", description = "게시글을 CRUD할 수 있습니다")
 public class TbBoardRestController {
     private final TbBoardService tbBoardService;
