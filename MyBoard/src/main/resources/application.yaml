@@ -12,4 +12,9 @@ spring:
       hibernate.format_sql: true
       hibernate.default_batch_fetch_size: 100
       hibernate.jdbc.time_zone: UTC
-
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+file:
+  dir: /Users/musung/testStore/
