@@ -17,8 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @CrossOrigin
-@Tag(name = "BoardController", description = "BoardControllerAPI")
+@Tag(name = "게시글 CRUD", description = "게시글을 CRUD할 수 있습니다")
 public class TbBoardRestController {
     private final TbBoardService tbBoardService;
     @Operation(summary = "게시판 글 조회" , description = "페이지 단위로 게시판 글을 조회합니다")
