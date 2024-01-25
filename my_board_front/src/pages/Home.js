@@ -8,7 +8,8 @@ function Home() {
             <Link to="/upload">파일 업로드</Link>
             <br></br>
             <Link to="/login">로그인 페이지</Link>
-            
+            <br></br>
+            <Link to="/loginTest">로그인테스트 페이지</Link>
         </div>
     );
 }

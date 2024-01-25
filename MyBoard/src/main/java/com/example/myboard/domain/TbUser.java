@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @ToString(callSuper = true)
 @AllArgsConstructor
+@NoArgsConstructor
 public class TbUser extends AuditingFields{
     @Column(nullable = false)
     @Setter
