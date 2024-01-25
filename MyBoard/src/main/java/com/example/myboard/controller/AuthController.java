@@ -1,5 +1,6 @@
 package com.example.myboard.controller;
 
+import com.example.myboard.anotaion.Login;
 import com.example.myboard.dto.user.LoginForm;
 import com.example.myboard.dto.user.SignupForm;
 import com.example.myboard.dto.user.UserDTO;
@@ -35,9 +36,10 @@ public class AuthController {
     }
     @CrossOrigin
     @GetMapping("/loginTest")
-    public ResponseEntity<String> loginTest(HttpServletRequest request) {
+    public ResponseEntity<String> loginTest(@Login String uid, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         String id = session.getId();
+        log.info("uid = [{}]",uid);
         return ResponseEntity.ok(id);
     }
 }
