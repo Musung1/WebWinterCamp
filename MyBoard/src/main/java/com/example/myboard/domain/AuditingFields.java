@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -22,6 +23,19 @@ public abstract class AuditingFields {
     @Setter
     @Getter
     protected String deleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuditingFields that = (AuditingFields) o;
+        return Objects.equals(id, that.id) && Objects.equals(deleted, that.deleted) && Objects.equals(createdAt, that.createdAt) && Objects.equals(modifiedAt, that.modifiedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, deleted, createdAt, modifiedAt);
+    }
 
     @Column(nullable = false, updatable = false)
     @CreatedDate
