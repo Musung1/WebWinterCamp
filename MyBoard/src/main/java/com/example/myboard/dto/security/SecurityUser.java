@@ -11,7 +11,7 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
     private TbUser user;
     protected SecurityUser(){}
-    public SecurityUser of(TbUser user) {
+    public static SecurityUser of(TbUser user) {
         SecurityUser securityUser = new SecurityUser();
         securityUser.setUser(user);
         return securityUser;
@@ -40,21 +40,21 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

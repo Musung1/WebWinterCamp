@@ -15,8 +15,8 @@ public class SignupForm {
     private String name;
     @NotNull
     @Size(min = 5,max = 10)
-    private String id;
+    private String username;
     @NotNull
     @Size(min = 5,max = 10)
-    private String pw;
+    private String password;
 }

@@ -12,8 +12,8 @@ import lombok.Setter;
 public class LoginForm {
     @NotNull
     @Size(min = 5,max = 10)
-    private String id;
+    private String username;
     @NotNull
     @Size(min = 5,max = 10)
-    private String pw;
+    private String password;
 }
