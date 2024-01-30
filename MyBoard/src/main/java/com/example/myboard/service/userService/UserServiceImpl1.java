@@ -12,15 +12,12 @@ public class UserServiceImpl1 implements UserService{
     @Override
     public Boolean login(LoginForm loginForm) {
         TbUser tbUser = repository.getUser(loginForm.getId());
-        return tbUser.getPw().equals(loginForm.getPw());
+        return tbUser.getPassword().equals(loginForm.getPw());
     }
 
     @Override
     public Boolean signup(SignupForm signupForm) {
-        TbUser tbUser = new TbUser();
-        tbUser.setName(signupForm.getName());
-        tbUser.setPw(signupForm.getPw());
-        tbUser.setUid(signupForm.getId());
+        TbUser tbUser = TbUser.of(signupForm.getId(), signupForm.getPw());
         repository.save(tbUser);
         return true;
     }

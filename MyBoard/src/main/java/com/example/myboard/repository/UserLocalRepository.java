@@ -12,8 +12,8 @@ public class UserLocalRepository {
     private Map<String,TbUser> store = new HashMap<>();
 
     public String save(TbUser user) {
-        store.put(user.getUid(),user);
-        return user.getUid();
+        store.put(user.getUsername(),user);
+        return user.getUsername();
     }
     public TbUser getUser(String uid) {
         TbUser user = store.get(uid);

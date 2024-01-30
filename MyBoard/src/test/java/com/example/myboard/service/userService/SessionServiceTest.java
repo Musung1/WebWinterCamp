@@ -15,7 +15,7 @@ class SessionServiceTest {
     SessionService sessionService = new SessionService();
     @Test
     public void sessionTest() {
-        TbUser tbUser = new TbUser();
+        TbUser tbUser = TbUser.of("musung","123");
         HttpSession session;
         HttpSession requestSession;
         //1. 로그인 요청
